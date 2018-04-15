@@ -6,13 +6,15 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
 
-cookies=dict(POESESSID='')
+from req import *
+
 
 class ShowThings():
     fld = ('name', 'typeLine', 'category', 'requirements', 'properties',
            'explicitMods', 'id')
     ign = ('icon', 'x', 'y', 'w', 'h', 'inventoryId', 'league',
-           'identified', 'verified', 'frameType', 'descrText', 'secDescrText')
+           'identified', 'verified', 'frameType', 'descrText', 'secDescrText',
+           'numTabs', 'currencyLayout', 'essenceLayout', 'quadLayout')
     show_fun = {
         'requirements': lambda val: '\n'.join(['{}: {}'.format(
             x['name'],
@@ -57,28 +59,37 @@ class ShowThings():
     
 
 class Item(tk.Button, ShowThings):
-    def __init__(self, master, info, item):
+    def __init__(self, master, info, item, scale):
         self.__dict__.update(item)
         self.info = info
-        self.image = ImageTk.PhotoImage(get_image(item).resize(item['w']*42, item['h']*42))
+        img = get_image(item)
+        wdth = int(item['w']*42*scale)
+        hght = int(item['h']*42*scale)
+        img = img.resize((wdth, hght), Image.NEAREST)
+        self.image = ImageTk.PhotoImage(img)
         self.item = item
-        super().__init__(master, image=self.image,
-                         command=lambda d=self.info, i=self.item: self.show(i.copy(), d),
-                         width=item['w']*42, height=item['h']*42)
-        self.grid()
+        print(item)
+        show_this = lambda d=self.info, i=self.item: self.show(i.copy(), d)
+        super().__init__(master, image=self.image, bg='red',
+                         command=show_this,
+                         width=wdth, height=hght)
                 
-class InventoryTab(ShowThings):
-    def __init__(self, master, index, items):
-        super().__init__()
+class InventoryTab(tk.Frame, ShowThings):
+    def __init__(self, master, league, index, items):
+        super().__init__(width=512, height=512)
 
+        self.inside = items.copy()
         content = items.pop('items', [])
+        self.league = league
+        self.master = master
+        self.idx_name = 'Content/{}/stash-{}'.format(league, index)
         title = 'Tab {}: {} --- {} items'.format(
             index,
             content[0]['inventoryId'] if content else 'void',
             len(content))
         print(title)
         self.index = index
-        frame = master.tabs[index]
+        frame = self
         pb_style = ttk.Style()
         pb_style.configure('.', relief=tk.RAISED)
         var = tk.IntVar()
@@ -100,30 +111,75 @@ class InventoryTab(ShowThings):
         self.content = {}
         self.show(items, self.info)
         self.show_items(content)
+        self.save()
+
+    def save(self):
+        try:
+            os.mkdir('Content/'+self.league)
+        except:
+            pass
+        with open(self.idx_name, 'w') as outf:
+            print(json.dumps(self.inside), file=outf)
+
+    def load(self):
+        try:
+            with open(self.idx_name, 'r') as inf:
+                data = inf.read()
+            return json.loads(data)
+        except:
+            return {}
+
+    def diff(self):
+        def rdiff(x, y):
+            if isinstance(x, dict):
+                for k in x:
+                    if k in y:
+                        rdiff(x[k], y[k])
+
+        old_tab = self.load(self)
+        
 
     def show_items(self, content):
         def get_layout(item, content):
-            if 'essenceLayout' in content:
-                layout = content['essenceLayout']['essences']
-                scale = content['essenceLayout']['scale']
+            if 'essenceLayout' in self.inside:
+                print('Essence')
+                layout = self.inside['essenceLayout']['essences']
+                scale = self.inside['essenceLayout']['scale']
                 pos = layout[item['x']]
-                return pos['x'], pos['y'], pos['h'], pos['w'], scale
-            if 'divinationLayout' in content:
-                return item['x'] % 12, item['x'] // 12, 1, 1, 1
-            if 'fragmentLayout' in content:
-                layout = content['fragmentLayout']
+                return pos['x'], pos['y'], pos['h'], pos['w'], scale, True
+            if 'divinationLayout' in self.inside:
+                print('cards')
+                return item['x'] % 12, item['x'] // 12, 1, 1, 1, False
+            if 'fragmentLayout' in self.inside:
+                print('Fragments')
+                layout = self.inside['fragmentLayout']
                 pos = layout[item['x']]
-                return pos['x'], pos['y'], pos['h'], pos['w'], 1
-            if 'quadLayout' in content:
-                return item['x'], item['y'], item['h'], item['w'], 0.25
-            return item['x'], item['y'], item['h'], item['w'], 1
+                return pos['x'], pos['y'], pos['h'], pos['w'], 1, True
+            if 'quadLayout' in self.inside:
+                print('Quad')
+                return item['x'], item['y'], item['h'], item['w'], 0.25, False
+            if 'currencyLayout' in self.inside:
+                print('Currency')
+                layout = self.inside['currencyLayout']
+                pos = layout[str(item['x'])]
+                return pos['x'], pos['y'], pos['h'], pos['w'], 1, True
+            print('Normal')
+            return item['x'], item['y'], item['h'], item['w'], 1, False
 
         for item in content:
-            x, y, h, w, scale = get_layout(item, content)
+            x, y, h, w, scale, place_it = get_layout(item, content)
             wdgt = Item(self.dsp, self.info, item, scale)
-            wdgt.grid(row=y, column=x, rowspan=h, columnspan=w)
+            print(x, y, h, w, scale)
+            if place_it:
+                x /= 512
+                y /= 512
+                wdgt.place(rely=y, relx=x, anchor=tk.NE)
+                print('place', x, y)
+            else:
+                print('grid', x, y)
+                wdgt.grid(row=y, column=x, rowspan=h, columnspan=w)
             self.pbar.step(1)
-            master.root.update()
+            self.master.root.update()
             
         self.pbar.destroy()
 
@@ -161,13 +217,13 @@ class LeagueButtons(tk.Frame):
             b = tk.Button(self, text=l,
                           command=lambda l=l: self.show_league(l))
             b.grid(row=0, column=nl, sticky=tk.EW)
-        self.tabs = {}
+        self.tabs = {l: {} for l in leagues}
         self.ctab = None
     def show_league(self, league):
         tab_cnt = get_page('stash_count', league=league,
                            accountName=self.master.account)['numTabs']
         print(league, tab_cnt)
-        for i in range(15):
+        for i in range(tab_cnt):
             frame = self.master.oframe
             b = tk.Button(frame, text=str(i),
                           command=lambda l=league,n=i: self.show_tab(l,n))
@@ -177,15 +233,18 @@ class LeagueButtons(tk.Frame):
         if self.ctab:
             self.ctab.grid_remove()
         if index not in self.tabs:
+            print('New tab', league, index)
             items = get_page('stash', league=league,
                              accountName=self.master.account,
                              tabIndex=index)
-            self.tabs[index] = tk.Frame(self.master.oframe)
-            self.tabs[index].grid(row=1, column=0, columnspan=50,
-                                  sticky=tk.NSEW)
-            InventoryTab(self, index, items)
+            tab = InventoryTab(self, league, index, items)
+
+            tab.grid(row=1, column=0, columnspan=50, sticky=tk.NSEW)
+            self.tabs[league][index] = tab
         else:
-            self.tabs[index].grid()
+            print('Old tab', league, index)
+            self.tabs[league][index].grid()
+        self.ctab = self.tabs[league][index]
 
 class BaseUI(tk.Frame):
     def __init__(self, root):

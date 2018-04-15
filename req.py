@@ -5,6 +5,8 @@ import requests
 import traceback
 from PIL import Image, ImageDraw, ImageFont
 
+cookies=dict(POESESSID='')
+
 link_base = 'https://www.pathofexile.com/character-window/'
 links=dict(acc_name='get-account-name',
            chars='get-characters',
@@ -21,6 +23,7 @@ def get_page(link, **kwargs):
     if r.text == 'error':
         sys.exit(0)
     try:
+        print(r.text)
         return json.loads(r.text)
     except:
         print(r.text)
