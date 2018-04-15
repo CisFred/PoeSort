@@ -1,0 +1,5 @@
+Content/
+2DItems/
+__pycache__/
+*.py~
+*.py#
