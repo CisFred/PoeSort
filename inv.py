@@ -19,7 +19,7 @@ def get_cnt(which, dest, **kw):
                 dest.put(result)
             return thing
         threading.Event().wait(30)
-        print(league, 'tab', kw['tabIndex'], 'retry')
+        print(which, kw, 'retry')
 
 def get_league(league, ma_acnt, dest):
     try:
@@ -44,20 +44,28 @@ def get_league(league, ma_acnt, dest):
         print('waiting for', idx, 'in', league)
         thd[idx].join()
 
-def save_check(ddir, data):
+def save_tab(ddir, data):
     # Add 'diff' before saving new.
     with open('{}/tab-{}'.format(ddir, data['tabIndex']), 'w') as outf:
         pp.pprint(data['result'], stream=outf)
 
-def one_league(league):
+def save_toon(ddir, toon, data):
+    # Add 'diff' before saving new.
+    with open('{}/{}'.format(ddir, toon), 'w') as outf:
+        pp.pprint(data, stream=outf)
+
+
+def one_league(league, toons):
     dest = queue.Queue()
     account = get_cnt('acc_name', dest=None)['accountName']
     thd = threading.Thread(target=get_league, name='league '+league,
                            args=(league, account, dest))
     thd.start()
     res = None
-    where = '/'.join((league, 'Stash'))
-    os.makedirs(where, exist_ok=True)
+    wtab = '/'.join((league, 'Stash'))
+    ttab = '/'.join((league, 'Toons'))
+    os.makedirs(wtab, exist_ok=True)
+    os.makedirs(ttab, exist_ok=True)
     print('Getting league', league)
     while True:
         data = dest.get()
@@ -70,15 +78,37 @@ def one_league(league):
         elif 'tabIndex' not in data:
             print('Unknown result', data)
         else:
-            save_check(where, data)
+            save_tab(wtab, data)
             nb_wait -= 1
             if nb_wait == 0:
                 print('waiting for get_l')
                 break
     thd.join()
+    for toon in toons:
+        print('Getting', toon)
+        res = get_cnt('inv', dest=None, character=toon)
+        save_toon(ttab, toon, res)
     
+def get_toons():
+    ldict = {}
+    res = get_cnt('chars', dest=None)
+    for toon in res:
+        if toon['league'] not in ldict:
+            ldict[toon['league']] = []
+        ldict[toon['league']].append(toon['name'])
+    return list(ldict.keys()), list(ldict.values())
+
 if __name__ == '__main__':
     req.init()
-    league=sys.argv[1]
-    one_league(league)
-    
+    leagues, toons = get_toons()
+    while True:
+        for n, l in enumerate(leagues):
+            print(n, '-', l)
+        what = input('> ')
+        try:
+            idx = int(what)
+            one_league(leagues[idx], toons[idx])
+        except:
+            print(sys.exc_info()[1])
+            break
+            
