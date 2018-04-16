@@ -3,7 +3,10 @@ import os
 import os.path
 import requests
 import traceback
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except:
+    pass
 
 cookies=dict(POESESSID='')
 
@@ -21,14 +24,19 @@ def get_page(link, **kwargs):
     
     r = requests.get(url, cookies=cookies)
     if r.text == 'error':
-        sys.exit(0)
+        print(r.content)
+        return None
     try:
-        print(r.text)
-        return json.loads(r.text)
+        # print(r.text)
+        res = json.loads(r.text)
+        if 'error' in res:
+            print(res['error'])
+            return None
+        return res
     except:
         print(r.text)
         traceback.print_exc()
-        sys.exit(0)
+        return None
 
 def get_image(item):
     base_url = 'https://web.poecdn.com/image/Art/'
@@ -66,3 +74,12 @@ def get_image(item):
            font=fnt, fill=(255, 255, 255, 150))
     return img
 
+def init():
+    with open('.poecfg', 'r') as inf:
+        for line in inf.readlines():
+            if line.startswith('POESESSID='):
+                cookies['POESESSID'] = line[10:].rstrip()
+                break
+        else:
+            print('Not found')
+            raise KeyError('POESESSID=')
