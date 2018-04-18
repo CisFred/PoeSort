@@ -3,7 +3,6 @@ import sys
 import threading
 import queue
 import json
-import deepdiff
 
 import pprint as pp
 
@@ -85,30 +84,45 @@ def diff_toon(league, toon):
     # print(gen_dif2(old_data, new_data, 'Top', 1))
         
 
-def gen_dif2(o1, o2, name, ind):
-    def outp(*a):
-        return (' '*ind)+' '.join([str(x) for x in a])
-
+def gen_dif2(o1, o2, name):
     if o1 == o2:
-        return outp(name, 'identical')
+        return None
+    if not o1:
+        return {name: 'is gone'}
+    if not o2:
+        return {name: 'is new'}
     if isinstance(o1, dict):
-        diffs = []
+        diffs = {}
         for k, v in o1.items():
             if k in o2:
                 if v != o2[k]:
-                    diffs.append(outp(name, gen_dif2(v, o2[k], k, ind+1)))
+                    diffs[k] = gen_dif2(v, o2[k], k)
             else:
-                diffs.append(outp(k, 'missing in new', name))
+                diffs[k] = 'is missing'
         for k in o2:
             if k not in o1:
-                diffs.append(outp(k, 'missing in old', name))
-        return '\n'.join(diffs)
+                diffs[k] = 'is new'
+        return {name: diffs}
     elif isinstance(o1, list):
-        pass
+        diffs = []
+        if isinstance(o1[0], dict):
+            c2 = list(o2)
+            for n, cnd in enumerate(o1):
+                other = find_same(cnd, c2)
+                if other:
+                    c2.pop(c2.index(cnd))
+                    xxx = gen_dif2(xx, yy, '{}<{}>'.format(name, n))
+        else:
+            for n, xx, yy in enumerate(itertools.zip_longest(o1, o2)):
+                one = gen_dif2(xx, yy, '{}[{}]'.format(name, n))
+                if one:
+                    diffs.append(one)
+                
+            
     elif isinstance(o1, (str, int, bool)):
-        return(outp(name, '{} -> {}'.format(o1, o2)))
+        return '{} -> {}'.format(o1, o2)
     else:
-        return(outp(name, type(o1), 'not handled'))
+        return str(type(o1)) + 'not handled'
                 
 
 
