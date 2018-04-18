@@ -3,3 +3,4 @@ Content/
 __pycache__/
 *.py~
 *.py#
+.poecfg
