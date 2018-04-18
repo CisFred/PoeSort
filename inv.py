@@ -71,7 +71,7 @@ def check_toon(ddir, toon, data):
     print("checking toon", toon)
     with open('{}/{}'.format(ddir, toon), 'r') as inf:
         old_data = eval(inf.read())
-    print('='*20, '\n', 'toon', toon, '\n', '='*20)
+    # print('='*20, '\n', 'toon', toon, '\n', '='*20)
     print(gen_diff(old_data, data, 1))
 
 def diff_toon(league, toon):
