@@ -49,10 +49,24 @@ def save_tab(ddir, data):
     with open('{}/tab-{}'.format(ddir, data['tabIndex']), 'w') as outf:
         pp.pprint(data['result'], stream=outf)
 
+def diff_toon(ddir, toon, data):
+    new_char = parse_char(data['character'])
+    new_inven = parse_items(data['items'], toon=True)
+    old_toon, old_inven = get_toon(ddir, toon)
+    char_diff(old_char, new_char)
+    inven_diff(old_inven, new_inven)
+    
+def get_toon(ddir, toon):
+    with open('{}/{}'.format(ddir, toon), 'r') as inf:
+        data = eval(inf.read())
+    return parse_char(data['character']), parse_items(data['items']. toon=True)
+
 def save_toon(ddir, toon, data):
     # Add 'diff' before saving new.
+    diff_toon(ddir, toon, data)
     with open('{}/{}'.format(ddir, toon), 'w') as outf:
         pp.pprint(data, stream=outf)
+    
 
 
 def one_league(league, toons):
