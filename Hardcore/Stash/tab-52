@@ -271,31 +271,6 @@
             'descrText': 'Place into an Abyssal Socket on an Item or into an '
                          'allocated Jewel Socket on the Passive Skill Tree. '
                          'Right click to remove from the Socket.',
-            'explicitMods': ['+46 to Armour',
-                             'Minions have 9% increased Movement Speed',
-                             'Minions have 5% increased Attack Speed',
-                             'Minions have 6% increased Cast Speed',
-                             'Minions deal 1 to 4 additional Lightning Damage'],
-            'frameType': 2,
-            'h': 1,
-            'icon': 'https://web.poecdn.com/image/Art/2DItems/Jewels/GhastlyEye.png?scale=1&scaleIndex=0&w=1&h=1&v=118803f4aa870b0d556958d6a0634cee',
-            'id': 'f14f551764cb806354967fc8af9354595d61b2eb218d76bf7c746252a00eff01',
-            'identified': True,
-            'ilvl': 33,
-            'inventoryId': 'Stash53',
-            'league': 'Hardcore',
-            'name': '<<set:MS>><<set:M>><<set:S>>Whispering Globe',
-            'properties': [{'displayMode': 0, 'name': 'Abyss', 'values': []}],
-            'typeLine': 'Ghastly Eye Jewel',
-            'verified': False,
-            'w': 1,
-            'x': 6,
-            'y': 6},
-           {'abyssJewel': True,
-            'category': {'jewels': ['abyss']},
-            'descrText': 'Place into an Abyssal Socket on an Item or into an '
-                         'allocated Jewel Socket on the Passive Skill Tree. '
-                         'Right click to remove from the Socket.',
             'explicitMods': ['+30 to maximum Energy Shield',
                              'Minions deal 1 to 4 additional Chaos Damage',
                              '5% additional Physical Damage Reduction against '

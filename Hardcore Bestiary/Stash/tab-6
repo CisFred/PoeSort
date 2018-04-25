@@ -1,0 +1,34 @@
+{'items': [{'category': {'jewels': []},
+            'descrText': 'Place into an allocated Jewel Socket on the Passive '
+                         'Skill Tree. Right click to remove from the Socket.',
+            'explicitMods': ['15% increased Fire Damage',
+                             'With at least 40 Strength in Radius, Molten '
+                             'Strike fires 2 additional Projectiles',
+                             'With at least 40 Strength in Radius, Molten '
+                             'Strike has 25% increased Area of Effect'],
+            'flavourText': ["News of Kaom's victory in the south spread "
+                            'quickly.\r',
+                            'Those in support of the coming rebellion bided '
+                            'their time.\r',
+                            'The rest fled like rats from a fire.'],
+            'frameType': 3,
+            'h': 1,
+            'icon': 'https://web.poecdn.com/image/Art/2DItems/Jewels/MoltenStrikeThreshold.png?scale=1&scaleIndex=0&w=1&h=1&v=d3e322429c0008b6c88ac44cc4fe45e2',
+            'id': 'ac94a1d21c79bc4fad7a30fc15aaff09047763b0bb52e2e9d389b454fbb85679',
+            'identified': True,
+            'ilvl': 1,
+            'inventoryId': 'Stash7',
+            'league': 'Hardcore Bestiary',
+            'name': '<<set:MS>><<set:M>><<set:S>>Wildfire',
+            'properties': [{'displayMode': 0,
+                            'name': 'Limited to',
+                            'values': [['2', 0]]},
+                           {'displayMode': 0,
+                            'name': 'Radius',
+                            'values': [['Medium', 0]]}],
+            'typeLine': 'Crimson Jewel',
+            'verified': False,
+            'w': 1,
+            'x': 0,
+            'y': 0}],
+ 'numTabs': 56}

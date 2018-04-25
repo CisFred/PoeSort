@@ -272,34 +272,6 @@
             'descrText': 'Place into an Abyssal Socket on an Item or into an '
                          'allocated Jewel Socket on the Passive Skill Tree. '
                          'Right click to remove from the Socket.',
-            'explicitMods': ['+34 to maximum Life',
-                             'Minions have +8% to all Elemental Resistances',
-                             'Minions deal 12 to 18 additional Cold Damage',
-                             "19% increased Minion Damage if you've used a "
-                             'Minion Skill Recently'],
-            'frameType': 2,
-            'h': 1,
-            'icon': 'https://web.poecdn.com/image/Art/2DItems/Jewels/GhastlyEye.png?scale=1&scaleIndex=0&w=1&h=1&v=118803f4aa870b0d556958d6a0634cee',
-            'id': 'd3af16eac2bd4f8188149d41322dbbee63cf0f2435e76a1415fbf667e64449b3',
-            'identified': True,
-            'ilvl': 75,
-            'inventoryId': 'Stash30',
-            'league': 'Standard',
-            'name': '<<set:MS>><<set:M>><<set:S>>Enthralling Arbiter',
-            'properties': [{'displayMode': 0, 'name': 'Abyss', 'values': []}],
-            'requirements': [{'displayMode': 0,
-                              'name': 'Level',
-                              'values': [['54', 0]]}],
-            'typeLine': 'Ghastly Eye Jewel',
-            'verified': False,
-            'w': 1,
-            'x': 3,
-            'y': 4},
-           {'abyssJewel': True,
-            'category': {'jewels': ['abyss']},
-            'descrText': 'Place into an Abyssal Socket on an Item or into an '
-                         'allocated Jewel Socket on the Passive Skill Tree. '
-                         'Right click to remove from the Socket.',
             'explicitMods': ['Minions have +10% to all Elemental Resistances',
                              'Minions deal 1 to 4 additional Lightning Damage',
                              'Minions have 3% chance to Taunt on Hit with '
