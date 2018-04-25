@@ -2,6 +2,7 @@ import os
 import sys
 import threading
 import queue
+import itertools
 import json
 
 import pprint as pp
@@ -78,55 +79,79 @@ def diff_toon(league, toon):
         new_data = eval(inf.read())
     with open('{}/Toons/{}.old'.format(league, toon), 'r') as inf:
         old_data = eval(inf.read())
-    dd = deepdiff.DeepDiff(old_data, new_data)
-    return new_data, old_data, dd
-    pp.pprint(dd)
-    # print(gen_dif2(old_data, new_data, 'Top', 1))
+    # dd = deepdiff.DeepDiff(old_data, new_data)
+    # return new_data, old_data, dd
+    # pp.pprint(dd)
+    pp.pprint(gen_dif2(old_data, new_data, 'Top'))
         
 
-def gen_dif2(o1, o2, name):
-    if o1 == o2:
+def gen_dif2(obj_one, obj_two, name):
+    def find_same(tgt, lst, **exclude):
+        def is_ok(fld):
+            return fld not in exclude and fld in tgt and tgt[fld]
+
+        def check_return(fld):
+            poss = [x for x in lst if fld in x and x[fld] == tgt[fld]]
+            if len(poss) > 1:
+                exclude[fld] = tgt[fld]
+                return find_same(tgt, poss, **exclude)
+            elif len(poss) == 1:
+                return poss[0]
+            else:
+                return None
+
+        for fld in ('id', 'name', 'typeLine', 'x', 'y'):
+            if is_ok(fld):
+                return check_return(fld)
+        
+    print('gd2: {:.25s} {:.25s}'.format(str(obj_one), str(obj_two)))
+    if obj_one == obj_two:
         return None
-    if not o1:
+    if not obj_one:
         return {name: 'is gone'}
-    if not o2:
+    if not obj_two:
         return {name: 'is new'}
-    if isinstance(o1, dict):
+    if isinstance(obj_one, dict):
         diffs = {}
-        for k, v in o1.items():
-            if k in o2:
-                if v != o2[k]:
-                    diffs[k] = gen_dif2(v, o2[k], k)
+        for k, v in obj_one.items():
+            if k in obj_two:
+                if v != obj_two[k]:
+                    diffs[k] = gen_dif2(v, obj_two[k], k)
             else:
                 diffs[k] = 'is missing'
-        for k in o2:
-            if k not in o1:
+        for k in obj_two:
+            if k not in obj_one:
                 diffs[k] = 'is new'
         return {name: diffs}
-    elif isinstance(o1, list):
+    elif isinstance(obj_one, list):
         diffs = []
-        if isinstance(o1[0], dict):
-            c2 = list(o2)
-            for n, cnd in enumerate(o1):
+        if isinstance(obj_one[0], dict):
+            c2 = list(obj_two)
+            for n, cnd in enumerate(obj_one):
                 other = find_same(cnd, c2)
                 if other:
-                    c2.pop(c2.index(cnd))
-                    xxx = gen_dif2(xx, yy, '{}<{}>'.format(name, n))
+                    try:
+                        c2.pop(c2.index(other))
+                    except:
+                        print('no', other, 'in', c2)
+                    xxx = gen_dif2(cnd, other, '{}<{}>'.format(name, n))
+                    if xxx:
+                        diffs.append(xxx)
         else:
-            for n, xx, yy in enumerate(itertools.zip_longest(o1, o2)):
+            for n, (xx, yy) in enumerate(itertools.zip_longest(obj_one, obj_two)):
                 one = gen_dif2(xx, yy, '{}[{}]'.format(name, n))
                 if one:
                     diffs.append(one)
-                
+        return diffs
             
-    elif isinstance(o1, (str, int, bool)):
-        return '{} -> {}'.format(o1, o2)
+    elif isinstance(obj_one, (str, int, float, bool)):
+        return '{} -> {}'.format(obj_one, obj_two)
     else:
-        return str(type(o1)) + 'not handled'
+        return str(type(obj_one)) + 'not handled'
                 
 
 
-def gen_diff(o1, o2, ind):
+def gen_diff(obj_one, obj_two, ind):
     def get_it(obj):
         try:
             return ', '.join(['{}: {}'.format(f, obj[f])
@@ -166,32 +191,32 @@ def gen_diff(o1, o2, ind):
             print('find_same', type(tgt), 'not handled', tgt, lst)
             return type(tgt), lst[0]
 
-    # print(' '*ind, 'checking {:.15s} vs. {:.15s}'.format(str(o1), str(o2)))
+    # print(' '*ind, 'checking {:.15s} vs. {:.15s}'.format(str(obj_one), str(obj_two)))
     # input('#')
-    if o1 == o2:
+    if obj_one == obj_two:
         return ''
-    if type(o1) != type(o2):
-        return ' '*ind + 'Diff. Type --{:.15s}-- --{:.15s}--'.format(o1, o2)
-    if isinstance(o1, dict):
+    if type(obj_one) != type(obj_two):
+        return ' '*ind + 'Diff. Type --{:.15s}-- --{:.15s}--'.format(obj_one, obj_two)
+    if isinstance(obj_one, dict):
         end_res = True
-        for k, v in o1.items():
+        for k, v in obj_one.items():
             end_res = []
-            if k not in o2:
+            if k not in obj_two:
                 end_res.append(' '*ind + 'Missing key {} in new'.format(k))
             else:
-                xxx = gen_diff(o1[k], o2[k], ind+1)
+                xxx = gen_diff(obj_one[k], obj_two[k], ind+1)
                 if xxx:
                     end_res.append(' '*ind + '{}: {}'.format(k, xxx))
-        for k in o2:
-            if k not in o1:
+        for k in obj_two:
+            if k not in obj_one:
                 end_res.append(' '*ind + 'Missing key {} in old'.format(k))
         if end_res:
             print('--', '\n'.join(end_res), '--')
         return ' '*ind+'\n'.join(end_res) if end_res else ''
-    if isinstance(o1, (list, tuple)):
+    if isinstance(obj_one, (list, tuple)):
         end_res = []
-        c1 = list(o1)
-        c2 = list(o2)
+        c1 = list(obj_one)
+        c2 = list(obj_two)
         while c1:
             old_o = c1.pop()
             what, cand = find_same(old_o, c2)
@@ -206,9 +231,9 @@ def gen_diff(o1, o2, ind):
             new_o = c2.pop()
             end_res.append('  '*ind + '{} is new'.format(get_it(new_o)))
         return ' '*ind+'\n'.join(end_res) if end_res else ''
-    if isinstance(o1, (str, int, float, bool)):
-        return ' '*ind+'{} -> {}'.format(o1, o2)
-    print(' '*ind, type(o1), 'NIY!', o1)
+    if isinstance(obj_one, (str, int, float, bool)):
+        return ' '*ind+'{} -> {}'.format(obj_one, obj_two)
+    print(' '*ind, type(obj_one), 'NIY!', obj_one)
     return ''
 
 def one_league(cmd, league, toons):
