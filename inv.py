@@ -222,11 +222,14 @@ def one_league(league, toons):
         elif 'tabIndex' not in data:
             print('Unknown result', data)
         else:
+            print('Process {} items for tab {}'.format(
+                len(data['result']['items']),
+                data['tabIndex']))
             for item in data['result']['items']:
                 key = league+'-'+item['inventoryId']
                 if key not in Tabs:
                     Tabs[key] = {}
-                    this = Item(item, pos=key, league=league)
+                this = Item(item, pos=key, league=league)
                 Tabs[key][this.id] = this
             save_tab(wtab, data)
             nb_wait -= 1
@@ -251,7 +254,6 @@ def get_toons():
 
 def whatsin(league, where):
     for itm, pos in Leagues[league]['byname'].items():
-        for 
         if where in pos:
             print(itm, pos)
 
@@ -262,6 +264,12 @@ def find(string):
                if string in x]
         if res:
             print(lg, '->', res)
+
+def load():
+    global Leagues
+    with open('./Leagues.pkl', 'rb') as inf:
+        Leagues = pickle.load(file=inf)
+    
 
 if __name__ == '__main__':
     req.init()
