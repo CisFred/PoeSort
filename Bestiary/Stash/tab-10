@@ -1,7 +1,7 @@
 {'items': [{'category': {'accessories': ['ring']},
             'explicitMods': ['+14 to all Attributes',
                              '34% increased Mana Regeneration Rate',
-                             '40% reduced Effect of Curses on You',
+                             '40% reduced Effect of Curses on you',
                              '1 Life Regenerated per second per Level'],
             'flavourText': ['Hear no evil.'],
             'frameType': 3,

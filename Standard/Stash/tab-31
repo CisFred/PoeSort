@@ -3520,63 +3520,6 @@
                          'to it. Place into an item socket connected to a '
                          'socket containing the Active Skill Gem you wish to '
                          'augment. Right click to remove from a socket.',
-            'explicitMods': ['Supported Skills have 15% chance to Freeze',
-                             'Supported Skills have 8 to 12 added Cold Damage',
-                             'Supported Skills have 50% chance to gain a '
-                             'Frenzy Charge on Killing a Frozen Enemy',
-                             'Supported Skills deal 20% increased Damage with '
-                             'Hits against Frozen Enemies',
-                             'Supported Skills have 2 to 3 added Cold Damage '
-                             'per Frenzy Charge'],
-            'frameType': 4,
-            'h': 1,
-            'icon': 'https://web.poecdn.com/image/Art/2DItems/Gems/Support/FrenzyChargeOnShatter.png?scale=1&scaleIndex=0&w=1&h=1&v=b6aa875414de98f827eb7e1d2ce53614',
-            'id': '86fb62be09d77787f88d60de8332243c989cfee3d24e8d917fc610a98ee0f656',
-            'identified': True,
-            'ilvl': 0,
-            'inventoryId': 'Stash32',
-            'league': 'Standard',
-            'name': '',
-            'properties': [{'displayMode': 0,
-                            'name': 'Cold, Support',
-                            'values': []},
-                           {'displayMode': 0,
-                            'name': 'Level',
-                            'type': 5,
-                            'values': [['1', 0]]},
-                           {'displayMode': 0,
-                            'name': 'Mana Multiplier',
-                            'values': [['130%', 0]]},
-                           {'displayMode': 0,
-                            'name': 'Quality',
-                            'type': 6,
-                            'values': [['+20%', 1]]}],
-            'requirements': [{'displayMode': 0,
-                              'name': 'Level',
-                              'values': [['31', 0]]},
-                             {'displayMode': 1,
-                              'name': 'Dex',
-                              'values': [['52', 0]]}],
-            'secDescrText': 'Supports any skill you use to hit enemies '
-                            'yourself. Cannot support skills used by totems, '
-                            'traps, or mines.',
-            'support': True,
-            'typeLine': 'Ice Bite Support',
-            'verified': False,
-            'w': 1,
-            'x': 5,
-            'y': 0},
-           {'additionalProperties': [{'displayMode': 2,
-                                      'name': 'Experience',
-                                      'progress': 3.4987667731911642e-06,
-                                      'type': 20,
-                                      'values': [['1/285815', 0]]}],
-            'category': {'gems': ['supportgem']},
-            'descrText': 'This is a Support Gem. It does not grant a bonus to '
-                         'your character, but to skills in sockets connected '
-                         'to it. Place into an item socket connected to a '
-                         'socket containing the Active Skill Gem you wish to '
-                         'augment. Right click to remove from a socket.',
             'explicitMods': ['Supported Skills deal 25% more Damage over Time',
                              'Supported Skills deal 10% increased Damage over '
                              'Time',

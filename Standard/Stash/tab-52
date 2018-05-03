@@ -509,7 +509,7 @@
                          'belt. Refills as you kill monsters.',
             'frameType': 0,
             'h': 2,
-            'icon': 'https://web.poecdn.com/gen/image/YTo2OntzOjExOiJ1c2VM/ZWFndWVJZCI7TzoxODoi/R3JpbmRiXERhdGFiYXNl/XElkIjoxOntzOjI6Imlk/IjtpOjA7fXM6OToiYWNj/b3VudElkIjtPOjE4OiJH/cmluZGJcRGF0YWJhc2Vc/SWQiOjE6e3M6MjoiaWQi/O2k6MDt9czoxMzoiaW52/ZW50b3J5VHlwZSI7aTox/O2k6MjthOjM6e3M6MToi/ZiI7czoyNToiQXJ0LzJE/SXRlbXMvRmxhc2tzL3Nw/cmludCI7czoyOiJzcCI7/ZDowLjYwODUxOTI2OTc3/Njg3NjM7czo1OiJsZXZl/bCI7aTowO31pOjE7aTo0/O2k6MDtpOjk7fQ,,/789994ef17/Item.png',
+            'icon': 'https://web.poecdn.com/gen/image/WzksNCx7ImYiOiJBcnRcLzJESXRlbXNcL0ZsYXNrc1wvc3ByaW50Iiwic3AiOjAuNjA4NSwibGV2ZWwiOjB9XQ,,/7ae41fd7a3/Item.png',
             'id': '1aabb2c6cf1e8035b7b7a4aec9756a24996c04e6b211d08a4a343ffd75397e01',
             'identified': True,
             'ilvl': 4,

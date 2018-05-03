@@ -1,8 +1,8 @@
 {'items': [{'category': {'jewels': []},
             'descrText': 'Place into an allocated Jewel Socket on the Passive '
                          'Skill Tree. Right click to remove from the Socket.',
-            'explicitMods': ['Adds 5 to 10 Fire Attack Damage per Buff on You',
-                             'Adds 2 to 8 Fire Spell Damage per Buff on You'],
+            'explicitMods': ['Adds 5 to 10 Fire Attack Damage per Buff on you',
+                             'Adds 2 to 8 Fire Spell Damage per Buff on you'],
             'flavourText': ['The strong grow stronger still.'],
             'frameType': 3,
             'h': 1,
@@ -1904,7 +1904,7 @@
             'descrText': 'Place into an allocated Jewel Socket on the Passive '
                          'Skill Tree. Right click to remove from the Socket.',
             'explicitMods': ['4% increased Effect of your Curses',
-                             '8% increased effect of Flasks on You',
+                             '8% increased effect of Flasks on you',
                              '3% increased effect of Non-Curse Auras you Cast'],
             'flavourText': ['What you earn is almost as important as what you '
                             'take.'],
@@ -2302,7 +2302,7 @@
             'id': 'ed5819490461041bab19b97048e22d94710890d8b8c6a3b1c37bf8ae201f69e3',
             'identified': True,
             'ilvl': 75,
-            'implicitMods': ['4% reduced Shock Duration on You'],
+            'implicitMods': ['4% reduced Shock Duration on you'],
             'inventoryId': 'Stash47',
             'league': 'Standard',
             'name': '<<set:MS>><<set:M>><<set:S>>Carrion Glisten',

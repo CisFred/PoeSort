@@ -506,7 +506,7 @@
             'y': 0},
            {'category': {'armour': ['shield']},
             'explicitMods': ['119% increased Armour and Energy Shield',
-                             '50% reduced Freeze Duration on You',
+                             '50% reduced Freeze Duration on you',
                              '6% of Life Regenerated per second while on Low '
                              'Life'],
             'flavourText': ['From death springs life.'],
@@ -695,7 +695,7 @@
             'explicitMods': ['15% increased Cold Damage',
                              '13% increased Lightning Damage',
                              '+141 to maximum Mana',
-                             'Enemies Cannot Leech Mana From You',
+                             'Enemies Cannot Leech Mana From you',
                              '5% of Damage taken gained as Mana over 4 seconds '
                              'when Hit',
                              'Cannot Leech Mana'],

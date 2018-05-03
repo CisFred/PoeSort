@@ -211,7 +211,7 @@
             'y': 8},
            {'category': {'armour': ['shield']},
             'explicitMods': ['108% increased Armour and Energy Shield',
-                             '50% reduced Freeze Duration on You',
+                             '50% reduced Freeze Duration on you',
                              '3% of Life Regenerated per second',
                              '3% of Life Regenerated per second while on Low '
                              'Life'],
@@ -869,7 +869,7 @@
                              '84% increased Evasion Rating',
                              '+135 to maximum Energy Shield',
                              '30% increased Movement Speed',
-                             'Enemies Cannot Leech Life From You'],
+                             'Enemies Cannot Leech Life From you'],
             'flavourText': ['Do not let them step on your feet. Keep them at '
                             'bay.'],
             'frameType': 3,

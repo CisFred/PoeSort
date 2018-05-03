@@ -1202,7 +1202,7 @@
                          'belt. Refills as you kill monsters.',
             'frameType': 0,
             'h': 2,
-            'icon': 'https://web.poecdn.com/gen/image/YTo2OntzOjExOiJ1c2VM/ZWFndWVJZCI7TzoxODoi/R3JpbmRiXERhdGFiYXNl/XElkIjoxOntzOjI6Imlk/IjtpOjA7fXM6OToiYWNj/b3VudElkIjtPOjE4OiJH/cmluZGJcRGF0YWJhc2Vc/SWQiOjE6e3M6MjoiaWQi/O2k6MDt9czoxMzoiaW52/ZW50b3J5VHlwZSI7aTox/O2k6MjthOjM6e3M6MToi/ZiI7czoyNToiQXJ0LzJE/SXRlbXMvRmxhc2tzL3Nw/cmludCI7czoyOiJzcCI7/ZDowLjYwODUxOTI2OTc3/Njg3NjM7czo1OiJsZXZl/bCI7aTowO31pOjE7aTo0/O2k6MDtpOjk7fQ,,/789994ef17/Item.png',
+            'icon': 'https://web.poecdn.com/gen/image/WzksNCx7ImYiOiJBcnRcLzJESXRlbXNcL0ZsYXNrc1wvc3ByaW50Iiwic3AiOjAuNjA4NSwibGV2ZWwiOjB9XQ,,/7ae41fd7a3/Item.png',
             'id': '533d7babac815cd4483b18268c75118797fb1279f10821e46d5977cee2b0177e',
             'identified': True,
             'ilvl': 15,

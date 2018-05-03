@@ -685,7 +685,7 @@
             'y': 9},
            {'category': {'armour': ['shield']},
             'explicitMods': ['89% increased Armour and Energy Shield',
-                             '50% reduced Freeze Duration on You',
+                             '50% reduced Freeze Duration on you',
                              '3% of Life Regenerated per second',
                              '3% of Life Regenerated per second while on Low '
                              'Life'],
@@ -880,7 +880,7 @@
             'flavourText': ['Your reach exceeds your grasp.'],
             'frameType': 3,
             'h': 2,
-            'icon': 'https://web.poecdn.com/gen/image/YTo2OntzOjExOiJ1c2VM/ZWFndWVJZCI7TzoxODoi/R3JpbmRiXERhdGFiYXNl/XElkIjoxOntzOjI6Imlk/IjtpOjA7fXM6OToiYWNj/b3VudElkIjtPOjE4OiJH/cmluZGJcRGF0YWJhc2Vc/SWQiOjE6e3M6MjoiaWQi/O2k6MDt9czoxMzoiaW52/ZW50b3J5VHlwZSI7aTox/O2k6MjthOjM6e3M6MToi/ZiI7czozMToiQXJ0LzJE/SXRlbXMvRmxhc2tzL1Bo/YW50b21CbG9vZCI7czoy/OiJzcCI7ZDowLjYwODUx/OTI2OTc3Njg3NjM7czo1/OiJsZXZlbCI7aTowO31p/OjE7aTo0O2k6MDtpOjk7/fQ,,/c05784b3d5/Item.png',
+            'icon': 'https://web.poecdn.com/gen/image/WzksNCx7ImYiOiJBcnRcLzJESXRlbXNcL0ZsYXNrc1wvUGhhbnRvbUJsb29kIiwic3AiOjAuNjA4NSwibGV2ZWwiOjB9XQ,,/1b7e2554a7/Item.png',
             'id': '15eb25cf707d87819f003cafd1bdb4eb865d4ef3147688d4b187c8887dc0b10c',
             'identified': True,
             'ilvl': 81,

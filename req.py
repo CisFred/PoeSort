@@ -23,8 +23,10 @@ def get_page(link, **kwargs):
     url = link_base + links[link].format(**kwargs)
 
     headers = kwargs.pop('headers', False)
+    sem = kwargs.pop('wait_sem', False)
         
     r = requests.get(url, cookies=cookies)
+
     if r.text == 'error':
         print(r.content)
         return None
