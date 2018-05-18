@@ -88,9 +88,7 @@ class Item():
 
     @staticmethod
     def shorten(string):
-        if '>' in string:
-            return string[string.rindex('>')+1:]
-        return string
+        return string[string.rindex('>')+1:] if '>' in string else string
 
     @classmethod
     def get_name(cls, data):
